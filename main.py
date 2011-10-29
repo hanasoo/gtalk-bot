@@ -21,10 +21,11 @@ class MainHandler(webapp.RequestHandler):
 		current_user = users.get_current_user()
 		access_token_key = 'access_token_%s' % current_user.email()
 		access_token = gdata.gauth.ae_load(access_token_key)
+		params = {'app_id': os.environ['APPLICATION_ID']}
 		if access_token:
-			params = {'login': True}
+			params['login'] = True
 		else:
-			params = {'login': False}
+			params['login'] = False
 
 		fpath = os.path.join(os.path.dirname(__file__), 'templates', 'index.html')
 		html = template.render(fpath, params)
