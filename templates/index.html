@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=7; IE=8" />
+	<link rel="shortcut icon" href="favicon.ico" >
+	<link rel="icon" type="image/gif" href="favicon_animated.gif" >
+	<title>hanasoo gtalk-bot test</title>
+	<link rel="shortcut icon" href="/favicon.ico">
+	<script type="text/javascript" src="http://site.decomoji.jp/js/GdXlv.js" charset="utf-8"></script>
+	<script type="text/javascript">try{DecoMoji.load()}catch(e){}</script>
+</head>
+<body>
+<div class="container deco-yuru">
+	<h1>gtalk-bot demo</h1>
+	<h2>簡単に使う</h2>
+	<p>
+		GoogleAppEngineのXMPP ClientからGoogleAppsにアクセスするデモです。<br />
+		Gmailの連絡先に"<span>hanasoo@appspot.com</span>"を追加、招待して下さい。
+	</p>	
+	
+	<h2>OAuth認証から使う</h2>
+	<p>
+	{% if login %}
+		認証は完了しました。
+	{% else %}
+		<a href="/step1">アクセスを許可する</a>
+	{% endif %}
+	</p>
+
+	<h2>ログアウト</h2>
+	<p>
+		<a href="/logout">ログアウトする</a>
+	</p>
+</div>
+</body>
+</html>
