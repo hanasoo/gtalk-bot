@@ -1,0 +1,47 @@
+app.yamlとsettingsをignoreしています。
+落としたら以下の感じで作ってから動作させて下さい。
+
+app.yaml記載例 ===============
+
+application: <your app_id>
+version: <your app version>
+runtime: python
+api_version: 1
+
+handlers:
+
+- url: /img
+  static_dir: static/img
+
+- url: /(favicon.*)
+  static_files: static/\1
+  upload: static/(favicon.*\.(ico|gif))
+  
+- url: /_ah/xmpp/message/chat/
+  script: xmpp.py
+
+- url: .*
+  script: main.py
+  
+inbound_services:
+- xmpp_message
+
+=============================
+
+
+
+settings.py 記載例 ===========
+# -*- coding:utf-8 -*-
+
+reg_email = '<YOUR GMAIL>@gmail.com'
+reg_pass = '<YOUR PASSWORD>'
+
+resource = {
+	'<APPS RESOURCE SHORTCUT NAME>': '<RESOURCE ID>@resource.calendar.google.com'
+}
+
+app_name = '<APPNAME>'
+consumer_key = '<YOUR CONSUMER KEY>'
+consumer_secret = '<YOUR CONSUMER SECRET>'
+scopes = ['https://www.google.com/calendar/feeds/'] 
+=============================
