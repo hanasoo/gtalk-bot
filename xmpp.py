@@ -12,7 +12,8 @@ from wsgiref.handlers import CGIHandler
 import datetime, logging, re, md5, random
 
 from models.guser import GUser
-from apps.calendar import BotCalendarClient
+from libs.calendar import BotCalendarClient
+from libs.status import StatusFetcher
 import settings, lang
 
 class XMPPHandler(webapp.RequestHandler):
@@ -24,6 +25,7 @@ class XMPPHandler(webapp.RequestHandler):
 		guser = GUser.get_or_insert(from_user)
 		self.replyMessage(message, guser)
 	
+	#TODO rename
 	def replyMessage(self, message, guser):
 		logging.info('--- recieved: %s' % guser.email)
 		logging.info('--- message: %s' % message.body)
@@ -103,6 +105,24 @@ class XMPPHandler(webapp.RequestHandler):
 				self.sendMessage(
 					message,
 					rbody % guser.nickname)
+					
+	def tellStatus(self, message, mbody, guser, match=None):
+		status = StatusFetcher().get()
+		#TODO use template
+		items = ['blobstore',
+			'datastore-read',
+			'datastore-write',
+			'image',
+			'mail',
+			'memcache-set',
+			'memcache-get',
+			'taskqueue',
+			'urlFetch',
+			'xmpp']
+		result = ''
+		for i in items:
+			result += '%s: %s(%s)\n' % (i, status[i]['enabled'], status[i]['will_remain'])
+		self.sendMessage(message, result)
 
 	actions = {
 		'ADD_EVENT': addEvent,
@@ -110,7 +130,8 @@ class XMPPHandler(webapp.RequestHandler):
 		'TELL_EVENT_HELP': tellEventHelp,
 		'GREET': greet,
 		'TELL_FORTUNE': tellFortune,
-		'NULL_POINTER': gatt}
+		'NULL_POINTER': gatt,
+		'TELL_STATUS': tellStatus}
 		
 
 """

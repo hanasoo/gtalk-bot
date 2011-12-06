@@ -11,7 +11,8 @@ TRIGGERS = [
 	re.compile('時'),
 	re.compile('(おはよう|こんにちわ|こんばんわ|ちーす|チース|Hello|Hi)'),
 	re.compile('占'),
-	re.compile('ぬるぽ')]
+	re.compile('ぬるぽ'),
+	re.compile('status')]
 	
 TRIGGER_ACTION = [
 	'ADD_EVENT',
@@ -20,7 +21,8 @@ TRIGGER_ACTION = [
 	'TELL_EVENT_HELP',
 	'GREET',
 	'TELL_FORTUNE',
-	'NULL_POINTER']
+	'NULL_POINTER',
+	'TELL_STATUS']
 	
 # Messages
 
